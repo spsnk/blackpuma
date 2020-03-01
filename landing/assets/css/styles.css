@@ -226,7 +226,6 @@ p {
   background-color: #0f81f8;
   color: #fff;
   text-shadow: none;
-  border: 0;
   -webkit-box-shadow: 3px 4px 7px rgba(0, 0, 0, 0.21);
   box-shadow: 3px 4px 7px rgba(0, 0, 0, 0.21);
 }
