@@ -1,24 +1,81 @@
 <!DOCTYPE html>
 <html lang="id">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>Paito</title>
-        <meta
-          name="keywords"
-          content="Pasang Togel Online, Cara Pasang Togel, Cara Bermain Togel, Togel Singapore, Togel HK, Prediksi Togel Akurat, Prediksi Angka Jitu, Agen Togel Terpercaya, Togel Online, Togel Terpercaya"
-        />
-        <meta
-          name="description"
-          content="Main togel online menguntungkan"
-        />
-        <link rel="stylesheet" href="./css/bootstrap.min.css" />
-        <link rel="stylesheet" href="./css/style.css" />
-    </head>
-    <body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Paito</title>
+    <meta
+      name="keywords"
+      content="Pasang Togel Online, Cara Pasang Togel, Cara Bermain Togel, Togel Singapore, Togel HK, Prediksi Togel Akurat, Prediksi Angka Jitu, Agen Togel Terpercaya, Togel Online, Togel Terpercaya"
+    />
+    <meta name="description" content="Main togel online menguntungkan" />
+    <link rel="stylesheet" href="./css/bootstrap.min.css" />
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body class="bg-light">
+    <div class="container">
+      <nav class="navbar navbar-expand-lg navbar-light">
+        <h1 class="navbar-brand">
+          Interactive Paito
+        </h1>
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              id="marketDropdown"
+              role="button"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              Market
+            </a>
+            <div class="dropdown-menu" aria-labelledby="marketDropdown">
+              <a class="dropdown-item" href="#">Texas Day</a>
+              <a class="dropdown-item" href="#">Swiss</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">Mexico Mega</a>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              role="button"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+              id="colorDropdown"
+              href="#"
+              >Select Color</a
+            >
+            <div class="dropdown-menu" aria-labelledby="colorDropdown">
+              <button class="btn btn-circle" id="color-1"></button>
+            </div>
+          </li>
+        </ul>
+      </nav>
+      <section class="container">
+        <table id="paito" class="table">
+          <thead>
+            <tr>
+              <th scope="col">Sunday</th>
+              <th scope="col">Monday</th>
+              <th scope="col">Tuesday</th>
+              <th scope="col">Wednesday</th>
+              <th scope="col">Thursday</th>
+              <th scope="col">Friday</th>
+              <th scope="col">Saturday</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </section>
+    </div>
 
-        <script src="./js/jquery-3.4.1.min.js"></script>
-        <script src="./js/bootstrap.bundle.min.js"></script>
-        <script src="./js/main.js"></script>
-    </body>
+    <script src="./js/jquery-3.4.1.min.js"></script>
+    <script src="./js/bootstrap.bundle.min.js"></script>
+    <script src="./js/axios.min.js"></script>
+    <script src="./js/main.js"></script>
+  </body>
 </html>
