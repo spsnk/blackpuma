@@ -4,10 +4,15 @@ function getPosition(mouseEvent, sigCanvas) {
   if (mouseEvent.pageX != undefined && mouseEvent.pageY != undefined) {
     x = mouseEvent.pageX;
     y = mouseEvent.pageY;
-
   } else {
-    x = mouseEvent.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
-    y = mouseEvent.clientY + document.body.scrollTop + document.documentElement.scrollTop;
+    x =
+      mouseEvent.clientX +
+      document.body.scrollLeft +
+      document.documentElement.scrollLeft;
+    y =
+      mouseEvent.clientY +
+      document.body.scrollTop +
+      document.documentElement.scrollTop;
   }
 
   return {
@@ -19,31 +24,31 @@ function getPosition(mouseEvent, sigCanvas) {
 function init_drawing() {
   var canvas = "draw";
   // get references to the canvas element as well as the 2D drawing context
-  var sigCanvas = $('#' + canvas)[0];
+  var sigCanvas = $("#" + canvas)[0];
   var context = sigCanvas.getContext("2d");
   context.strokeStyle = "#33aaff";
   context.lineJoin = "round";
   context.lineWidth = 1;
 
   // This will be defined on a TOUCH device such as iPad or Android, etc.
-  var is_touch_device = 'ontouchstart' in document.documentElement;
+  var is_touch_device = "ontouchstart" in document.documentElement;
 
   if (is_touch_device) {
     // create a drawer which tracks touch movements
     var drawer = {
       isDrawing: false,
-      touchstart: function (coors) {
+      touchstart: function(coors) {
         context.beginPath();
         context.moveTo(coors.x, coors.y);
         this.isDrawing = true;
       },
-      touchmove: function (coors) {
+      touchmove: function(coors) {
         if (this.isDrawing) {
           context.lineTo(coors.x, coors.y);
           context.stroke();
         }
       },
-      touchend: function (coors) {
+      touchend: function(coors) {
         if (this.isDrawing) {
           this.touchmove(coors);
           this.isDrawing = false;
@@ -67,10 +72,11 @@ function init_drawing() {
         do {
           coors.x -= obj.offsetLeft;
           coors.y -= obj.offsetTop;
-        }
-        // The while loop can be "while (obj = obj.offsetParent)" only, which does return null
-        // when null is passed back, but that creates a warning in some editors (i.e. VS2010).
-        while ((obj = obj.offsetParent) != null);
+        } while (
+          // The while loop can be "while (obj = obj.offsetParent)" only, which does return null
+          // when null is passed back, but that creates a warning in some editors (i.e. VS2010).
+          (obj = obj.offsetParent) != null
+        );
       }
 
       // pass the coordinates to the appropriate handler
@@ -78,38 +84,43 @@ function init_drawing() {
     }
 
     // attach the touchstart, touchmove, touchend event listeners.
-    sigCanvas.addEventListener('touchstart', draw, false);
-    sigCanvas.addEventListener('touchmove', draw, false);
-    sigCanvas.addEventListener('touchend', draw, false);
+    sigCanvas.addEventListener("touchstart", draw, false);
+    sigCanvas.addEventListener("touchmove", draw, false);
+    sigCanvas.addEventListener("touchend", draw, false);
 
     // prevent elastic scrolling
-    sigCanvas.addEventListener('touchmove', function (event) {
-      event.preventDefault();
-    }, false);
+    sigCanvas.addEventListener(
+      "touchmove",
+      function(event) {
+        event.preventDefault();
+      },
+      false
+    );
   } else {
     // start drawing when the mousedown event fires, and attach handlers to
     // draw a line to wherever the mouse moves to
-    $("#" + canvas).mousedown(function (mouseEvent) {
+    $("#" + canvas).mousedown(function(mouseEvent) {
       var position = getPosition(mouseEvent, sigCanvas);
       context.moveTo(position.X, position.Y);
       context.beginPath();
       // attach event handlers
-      $(this).mousemove(function (mouseEvent) {
-        drawLine(mouseEvent, sigCanvas, context);
-      }).mouseup(function (mouseEvent) {
-        finishDrawing(mouseEvent, sigCanvas, context);
-      }).mouseout(function (mouseEvent) {
-        finishDrawing(mouseEvent, sigCanvas, context);
-      });
+      $(this)
+        .mousemove(function(mouseEvent) {
+          drawLine(mouseEvent, sigCanvas, context);
+        })
+        .mouseup(function(mouseEvent) {
+          finishDrawing(mouseEvent, sigCanvas, context);
+        })
+        .mouseout(function(mouseEvent) {
+          finishDrawing(mouseEvent, sigCanvas, context);
+        });
     });
-
   }
 }
 
 // draws a line to the x and y coordinates of the mouse event inside
 // the specified element using the specified context
 function drawLine(mouseEvent, sigCanvas, context) {
-
   var position = getPosition(mouseEvent, sigCanvas);
 
   context.lineTo(position.X, position.Y);
@@ -124,7 +135,8 @@ function finishDrawing(mouseEvent, sigCanvas, context) {
   drawLine(mouseEvent, sigCanvas, context);
   context.closePath();
   // unbind any events which could draw
-  $(sigCanvas).unbind("mousemove")
+  $(sigCanvas)
+    .unbind("mousemove")
     .unbind("mouseup")
     .unbind("mouseout");
 }
@@ -135,10 +147,10 @@ function clearCanvas(canvas, ctx) {
 }
 
 function addRow(data) {
-  let row = $("<tr>");
-  for (let i = 0; i < 7; i++) {
-    let cell = $("<td>");
-    data[i].split("").forEach(value => {
+  var row = $("<tr>");
+  for (var i = 0; i < 7; i++) {
+    var cell = $("<td>");
+    data[i].split("").forEach(function(value) {
       cell.append("<span class='number'>" + value + "</span>");
     });
     row.append(cell);
@@ -146,23 +158,23 @@ function addRow(data) {
   $("#paito > tbody").append(row);
 }
 
-$(function () {
+$(function() {
   axios
     .get("data/texas_day.json")
-    .then(function (response) {
-      response.data.forEach(value => {
+    .then(function(response) {
+      response.data.forEach(function(value) {
         addRow(value);
       });
       $("#draw")
         .offset($("#paito > tbody").offset())
         .height($("#paito > tbody").height())
         .width($("#paito > tbody").width());
-      let ctx = $("#draw")[0].getContext('2d');
+      var ctx = $("#draw")[0].getContext("2d");
       ctx.canvas.height = $("#paito > tbody").height();
       ctx.canvas.width = $("#paito > tbody").width();
       init_drawing();
     })
-    .catch(function (error) {
+    .catch(function(error) {
       console.log(error);
     });
 });
