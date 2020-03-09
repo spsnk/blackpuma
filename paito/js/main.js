@@ -177,4 +177,9 @@ $(function() {
     .catch(function(error) {
       console.log(error);
     });
+  $("#clear_canvas").click(function() {
+    var canvas = $("#draw")[0];
+    var ctx = canvas.getContext("2d");
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  });
 });
