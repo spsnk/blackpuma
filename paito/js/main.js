@@ -1,6 +1,6 @@
 $(function() {
   axios
-    .get("/blackpuma/paito/data/texas_day.json")
+    .get("data/texas_day.json")
     .then(function(response) {
       console.log(response);
       response.data.forEach(value => {
