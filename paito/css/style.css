@@ -14,3 +14,27 @@
   box-shadow: 1px 1px 5px silver, -1px -1px 5px silver, -1px 1px 5px silver,
     1px -1px 5px silver;
 }
+
+#paito {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+
+#draw {
+  opacity: 0.3;
+  z-index: 10;
+}
+
+td {
+  white-space: nowrap;
+}
+
+span.number {
+  display: inline-block;
+  width: 1.5rem;
+  height: 1.5rem;
+  margin: 1px;
+  border: 1px solid #00000077;
+  border-radius: 50%;
+}
