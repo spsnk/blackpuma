@@ -9,8 +9,9 @@
       content="Pasang Togel Online, Cara Pasang Togel, Cara Bermain Togel, Togel Singapore, Togel HK, Prediksi Togel Akurat, Prediksi Angka Jitu, Agen Togel Terpercaya, Togel Online, Togel Terpercaya"
     />
     <meta name="description" content="Main togel online menguntungkan" />
-    <link rel="stylesheet" href="./css/bootstrap.min.css" />
-    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/all.min.css" />
   </head>
   <body class="bg-light">
     <main class="container">
@@ -30,7 +31,7 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbar">
-          <ul class="navbar-nav ml-auto  mt-2 mt-lg-0">
+          <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
             <li class="nav-item dropdown">
               <a
                 class="nav-link dropdown-toggle"
@@ -62,7 +63,18 @@
                 >Select Color</a
               >
               <div class="dropdown-menu" aria-labelledby="colorDropdown">
-                <button class="btn btn-circle" id="color-1"></button>
+                <button class="btn btn-color" data-color="#4144f1"></button>
+                <button class="btn btn-color" data-color="#6a4444"></button>
+                <button class="btn btn-color" data-color="#7faf0d"></button>
+                <button class="btn btn-color" data-color="#76afe8"></button>
+                <button class="btn btn-color" data-color="#ab7e30"></button>
+                <button class="btn btn-color" data-color="#66ed0c"></button>
+                <button class="btn btn-color" data-color="#e4721b"></button>
+                <button class="btn btn-color" data-color="#f471b9"></button>
+                <button class="btn btn-color" data-color="#9123b3"></button>
+                <button class="btn btn-color" data-color="#ed0c0c"></button>
+                <button class="btn btn-color" data-color="#41e5f1"></button>
+                <button class="btn btn-color" data-color="#F2e250"></button>
               </div>
             </li>
             <li class="nav-item">
@@ -74,6 +86,16 @@
                 Clear
               </button>
             </li>
+            <li class="nav-item">
+              <button
+                type="button"
+                id="draw_toggle"
+                class="nav-btn btn btn-outline-secondary"
+              >
+                <i class="fas fa-draw-polygon"></i>
+                <i class="fas fa-pencil-alt" style="display:none;"></i>
+              </button>
+            </li>
           </ul>
         </div>
       </nav>
@@ -82,12 +104,19 @@
           <thead>
             <tr>
               <th scope="col">Sunday</th>
+              <th scope="col"></th>
               <th scope="col">Monday</th>
+              <th scope="col"></th>
               <th scope="col">Tuesday</th>
+              <th scope="col"></th>
               <th scope="col">Wednesday</th>
+              <th scope="col"></th>
               <th scope="col">Thursday</th>
+              <th scope="col"></th>
               <th scope="col">Friday</th>
+              <th scope="col"></th>
               <th scope="col">Saturday</th>
+              <th scope="col"></th>
             </tr>
           </thead>
           <tbody></tbody>

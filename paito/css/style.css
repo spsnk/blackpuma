@@ -1,4 +1,4 @@
-.btn-circle {
+.btn-color {
   width: 30px;
   height: 30px;
   padding: 6px;
@@ -10,9 +10,9 @@
   border: 1px black solid;
 }
 
-.btn-circle:hover {
-  box-shadow: 1px 1px 5px silver, -1px -1px 5px silver, -1px 1px 5px silver,
-    1px -1px 5px silver;
+.btn-color:hover {
+  box-shadow: 1px 1px 5px blue, -1px -1px 5px blue, -1px 1px 5px blue,
+    1px -1px 5px blue;
 }
 
 #paito {
@@ -37,4 +37,14 @@ span.number {
   margin: 1px;
   border: 1px solid #00000077;
   border-radius: 50%;
+}
+
+.table td,
+.table th {
+  padding: 0.5rem 0.75rem !important;
+}
+
+.nav-btn,
+nav .btn {
+  margin: 3px;
 }

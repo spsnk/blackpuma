@@ -150,12 +150,22 @@ function addRow(data) {
   var row = $("<tr>");
   for (var i = 0; i < 7; i++) {
     var cell = $("<td>");
-    data[i].split("").forEach(function(value) {
+    var generated_number = $("<td>").addClass("text-muted");
+    data[i].split("").forEach(function(value, idx, arr) {
       cell.append("<span class='number'>" + value + "</span>");
+      if (idx == arr.length - 1) {
+        generated_number.text(digitSum(arr[idx] + arr[idx - 1]));
+      }
     });
-    row.append(cell);
+    row.append(cell).append(generated_number);
   }
   $("#paito > tbody").append(row);
+}
+
+function digitSum(number) {
+  if (isNaN(number)) return "";
+  if (number == 0) return 0;
+  return number % 9 == 0 ? 9 : number % 9;
 }
 
 $(function() {
@@ -181,5 +191,20 @@ $(function() {
     var canvas = $("#draw")[0];
     var ctx = canvas.getContext("2d");
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+  });
+  $("#draw_toggle").click(function() {
+    $(this)
+      .children()
+      .each(function() {
+        $(this).toggle();
+      });
+  });
+  $(".btn-color").each(function() {
+    $(this).css("background-color", this.dataset.color);
+    $(this).click(function() {
+      var canvas = $("#draw")[0];
+      var ctx = canvas.getContext("2d");
+      ctx.strokeStyle = this.dataset.color;
+    });
   });
 });
