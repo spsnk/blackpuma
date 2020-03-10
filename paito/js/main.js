@@ -154,7 +154,7 @@ function addRow(data) {
     data[i].split("").forEach(function(value, idx, arr) {
       cell.append("<span class='number'>" + value + "</span>");
       if (idx == arr.length - 1) {
-        generated_number.text(digitSum(arr[idx] + arr[idx - 1]));
+        //generated_number.text(digitSum(arr[idx] + arr[idx - 1]));
       }
     });
     row.append(cell).append(generated_number);
