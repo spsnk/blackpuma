@@ -26,7 +26,7 @@ function init_drawing() {
   // get references to the canvas element as well as the 2D drawing context
   var sigCanvas = $("#" + canvas)[0];
   var context = sigCanvas.getContext("2d");
-  context.strokeStyle = "#33aaff";
+  context.strokeStyle = "#4144f1";
   context.lineJoin = "round";
   context.lineWidth = 1;
 
@@ -199,12 +199,13 @@ $(function() {
         $(this).toggle();
       });
   });
-  $(".btn-color").each(function() {
+  $(".btn-color[data-color]").each(function() {
     $(this).css("background-color", this.dataset.color);
     $(this).click(function() {
       var canvas = $("#draw")[0];
       var ctx = canvas.getContext("2d");
       ctx.strokeStyle = this.dataset.color;
+      $("#current_color").css("background-color", this.dataset.color);
     });
   });
 });

@@ -31,7 +31,7 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbar">
-          <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+          <ul class="navbar-nav ml-auto mt-2 mt-lg-0 align-items-center">
             <li class="nav-item dropdown">
               <a
                 class="nav-link dropdown-toggle"
@@ -60,8 +60,13 @@
                 aria-expanded="false"
                 id="colorDropdown"
                 href="#"
-                >Select Color</a
               >
+                <button
+                  class="btn btn-color "
+                  id="current_color"
+                  style="background-color: #4144f1;"
+                ></button>
+              </a>
               <div class="dropdown-menu" aria-labelledby="colorDropdown">
                 <button class="btn btn-color" data-color="#4144f1"></button>
                 <button class="btn btn-color" data-color="#6a4444"></button>
@@ -80,20 +85,20 @@
             <li class="nav-item">
               <button
                 type="button"
-                id="clear_canvas"
+                id="draw_toggle"
                 class="nav-btn btn btn-outline-primary"
               >
-                Clear
+                <i class="fas fa-draw-polygon fa-fw"></i>
+                <i class="fas fa-pencil-alt fa-fw" style="display:none;"></i>
               </button>
             </li>
             <li class="nav-item">
               <button
                 type="button"
-                id="draw_toggle"
-                class="nav-btn btn btn-outline-secondary"
+                id="clear_canvas"
+                class="nav-btn btn btn-outline-danger"
               >
-                <i class="fas fa-draw-polygon"></i>
-                <i class="fas fa-pencil-alt" style="display:none;"></i>
+                <i class="fas fa-trash-alt fa-fw"></i>
               </button>
             </li>
           </ul>
