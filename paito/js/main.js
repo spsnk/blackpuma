@@ -1,4 +1,4 @@
-// works out the X, Y position of the click inside the canvas from the X, Y position on the page
+/* // works out the X, Y position of the click inside the canvas from the X, Y position on the page
 function getPosition(mouseEvent, sigCanvas) {
   var x, y;
   if (mouseEvent.pageX != undefined && mouseEvent.pageY != undefined) {
@@ -28,7 +28,7 @@ function init_drawing() {
   var context = sigCanvas.getContext("2d");
   context.strokeStyle = "#4144f1";
   context.lineJoin = "round";
-  context.lineWidth = 1;
+  context.lineWidth = 1.5;
 
   // This will be defined on a TOUCH device such as iPad or Android, etc.
   var is_touch_device = "ontouchstart" in document.documentElement;
@@ -145,6 +145,7 @@ function finishDrawing(mouseEvent, sigCanvas, context) {
 function clearCanvas(canvas, ctx) {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
+*/
 
 function addRow(data) {
   var row = $("<tr>");
@@ -176,13 +177,16 @@ $(function() {
         addRow(value);
       });
       $("#draw")
-        .offset($("#paito > tbody").offset())
-        .height($("#paito > tbody").height())
-        .width($("#paito > tbody").width());
+        .show()
+        //.offset($("#paito > tbody").offset())
+        .height($("#paito").height())
+        .width($("#paito").width())
+        .css({ top: 0, left: 0, marginTop: -$("#paito").height() })
+        .hide();
       var ctx = $("#draw")[0].getContext("2d");
       ctx.canvas.height = $("#paito > tbody").height();
       ctx.canvas.width = $("#paito > tbody").width();
-      init_drawing();
+      //init_drawing();
     })
     .catch(function(error) {
       console.log(error);
@@ -191,6 +195,7 @@ $(function() {
     var canvas = $("#draw")[0];
     var ctx = canvas.getContext("2d");
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    $("#paito span.number").css("background-color", "");
   });
   $("#draw_toggle").click(function() {
     $(this)
@@ -198,6 +203,7 @@ $(function() {
       .each(function() {
         $(this).toggle();
       });
+    $("#draw").toggle();
   });
   $(".btn-color[data-color]").each(function() {
     $(this).css("background-color", this.dataset.color);
@@ -207,5 +213,11 @@ $(function() {
       ctx.strokeStyle = this.dataset.color;
       $("#current_color").css("background-color", this.dataset.color);
     });
+  });
+  $("#paito").on("click", ".number", function() {
+    $(this).css(
+      "background-color",
+      $("#current_color").css("background-color")
+    );
   });
 });

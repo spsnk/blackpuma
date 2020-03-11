@@ -15,8 +15,9 @@
 }
 
 #paito {
+  user-select: none;
   position: relative;
-  z-index: 1;
+
   text-align: center;
 }
 
@@ -35,7 +36,11 @@ span.number {
   height: 1.5rem;
   margin: 1px;
   border: 1px solid #00000077;
+  text-shadow: 1px 1px 1px white, -1px -1px 1px white, -1px 1px 1px white,
+    1px -1px 1px white;
   border-radius: 50%;
+  cursor: pointer;
+  z-index: 11 !important;
 }
 
 .table td,
@@ -46,4 +51,11 @@ span.number {
 .nav-btn,
 nav .btn {
   margin: 3px;
+}
+
+.show {
+  display: initial;
+}
+.hide {
+  display: none;
 }
