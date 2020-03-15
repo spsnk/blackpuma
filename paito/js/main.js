@@ -205,7 +205,6 @@ $(function() {
     $("#draw").css("z-index", zin);
   });
   $(".btn-color[data-color]").each(function() {
-    numbersPressed.push(this);
     $(this).css("background-color", this.dataset.color);
     $(this).click(function() {
       var canvas = $("#draw")[0];
@@ -215,6 +214,7 @@ $(function() {
     });
   });
   $("#paito").on("click", ".number", function() {
+    numbersPressed.push($(this));
     $(this).css(
       "background-color",
       $("#current_color").css("background-color")
