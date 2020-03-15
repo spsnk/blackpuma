@@ -17,7 +17,7 @@
     <main class="container">
       <nav class="navbar navbar-expand-lg navbar-light">
         <h1 class="navbar-brand">
-          Interactive Paito
+          <span id="market_name">Interactive</span> Paito
         </h1>
         <button
           class="navbar-toggler"
@@ -45,10 +45,90 @@
                 Market
               </a>
               <div class="dropdown-menu" aria-labelledby="marketDropdown">
-                <a class="dropdown-item" href="#">Texas Day</a>
-                <a class="dropdown-item" href="#">Swiss</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Mexico Mega</a>
+                <button class="dropdown-item" data-market="bangkok">
+                  Bangkok
+                </button>
+                <button class="dropdown-item" data-market="brazil">
+                  Brazil
+                </button>
+                <button class="dropdown-item" data-market="bullseye">
+                  Bullseye
+                </button>
+                <button class="dropdown-item" data-market="german">
+                  German
+                </button>
+                <button class="dropdown-item" data-market="Hongkong">
+                  Hongkong
+                </button>
+                <button class="dropdown-item" data-market="uk_international">
+                  International Lottery (UK)
+                </button>
+                <button class="dropdown-item" data-market="korea">
+                  Korea
+                </button>
+                <button class="dropdown-item" data-market="es_bote">
+                  Logeria de Bote (Spain)
+                </button>
+                <button class="dropdown-item" data-market="magnum4d">
+                  Magmun4D
+                </button>
+                <button class="dropdown-item" data-market="manchester">
+                  Manchester
+                </button>
+                <button class="dropdown-item" data-market="mexico_mega">
+                  Mexico Mega
+                </button>
+                <button class="dropdown-item" data-market="mongolia">
+                  Mongolia
+                </button>
+                <button class="dropdown-item" data-market="north_carolina_day">
+                  North Carolina Day
+                </button>
+                <button class="dropdown-item" data-market="oregon1">
+                  Oregon 1
+                </button>
+                <button class="dropdown-item" data-market="oregon2">
+                  Oregon 2
+                </button>
+                <button class="dropdown-item" data-market="oregon3">
+                  Oregon 3
+                </button>
+                <button class="dropdown-item" data-market="pcso">
+                  PCSO
+                </button>
+                <button class="dropdown-item" data-market="penang">
+                  Penang
+                </button>
+                <button class="dropdown-item" data-market="singapore">
+                  Singapore
+                </button>
+                <button class="dropdown-item" data-market="swiss">
+                  Swiss
+                </button>
+                <button class="dropdown-item" data-market="sidney">
+                  Sidney
+                </button>
+                <button class="dropdown-item" data-market="texas_day">
+                  Texas Day
+                </button>
+                <button class="dropdown-item" data-market="texas_morning">
+                  Texas Morning
+                </button>
+                <button class="dropdown-item" data-market="tibet">
+                  Tibet
+                </button>
+                <button class="dropdown-item" data-market="tokyo_mega">
+                  Tokyo Mega
+                </button>
+                <button class="dropdown-item" data-market="vietnam">
+                  Vietnam
+                </button>
+                <button class="dropdown-item" data-market="virginia_night">
+                  Virginia Night
+                </button>
+                <button class="dropdown-item" data-market="winning_balls">
+                  Winning Balls (Greece)
+                </button>
               </div>
             </li>
             <li class="nav-item dropdown">
@@ -88,8 +168,17 @@
                 id="draw_toggle"
                 class="nav-btn btn btn-outline-primary"
               >
-                <i class="fas fa-pencil-alt fa-fw" style="display:none;"></i>
+                <i class="fas fa-pencil-ruler fa-fw" style="display:none;"></i>
                 <i class="fas fa-hand-pointer fa-fw"></i>
+              </button>
+            </li>
+            <li class="nav-item">
+              <button
+                type="button"
+                id="undo_line"
+                class="nav-btn btn btn-outline-secondary"
+              >
+                <i class="fas fa-undo-alt fa-fw"></i>
               </button>
             </li>
             <li class="nav-item">

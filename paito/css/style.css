@@ -1,3 +1,6 @@
+body {
+  overflow-y: scroll;
+}
 .btn-color {
   width: 30px;
   height: 30px;
@@ -17,13 +20,13 @@
 #paito {
   user-select: none;
   position: relative;
-
   text-align: center;
+  z-index: 10;
 }
 
 #draw {
-  opacity: 0.95;
-  z-index: 10;
+  position: relative;
+  z-index: 9;
 }
 
 td {
@@ -40,7 +43,7 @@ span.number {
     1px -1px 1px white;
   border-radius: 50%;
   cursor: pointer;
-  z-index: 11 !important;
+  opacity: 0.9;
 }
 
 .table td,

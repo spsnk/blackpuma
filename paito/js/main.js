@@ -1,4 +1,37 @@
-/* // works out the X, Y position of the click inside the canvas from the X, Y position on the page
+function addRow(data) {
+  var row = $("<tr>");
+  for (var i = 0; i < 7; i++) {
+    var cell = $("<td>");
+    var generated_number = $("<td>").addClass("text-muted");
+    var data_number = data[i].split("");
+    data_number.forEach(function(value, idx, arr) {
+      cell.append("<span class='number'>" + value + "</span>");
+    });
+    generated_number.text(
+      digitSum(
+        data_number[data_number.length - 1] +
+          data_number[data_number.length - 2]
+      )
+    );
+    row.append(cell).append(generated_number);
+  }
+  $("#paito > tbody").append(row);
+}
+
+function digitSum(number) {
+  if (isNaN(number)) return "";
+  if (number == 0) return 0;
+  return number % 9 == 0 ? 9 : number % 9;
+}
+
+// Clear the canvas context using the canvas width and height
+function clearCanvas(element) {
+  var canvas = $(element)[0];
+  var ctx = canvas.getContext("2d");
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
+
+// works out the X, Y position of the click inside the canvas from the X, Y position on the page
 function getPosition(mouseEvent, sigCanvas) {
   var x, y;
   if (mouseEvent.pageX != undefined && mouseEvent.pageY != undefined) {
@@ -21,181 +54,143 @@ function getPosition(mouseEvent, sigCanvas) {
   };
 }
 
-function init_drawing() {
-  var canvas = "draw";
-  // get references to the canvas element as well as the 2D drawing context
-  var sigCanvas = $("#" + canvas)[0];
-  var context = sigCanvas.getContext("2d");
-  context.strokeStyle = "#4144f1";
-  context.lineJoin = "round";
-  context.lineWidth = 1.5;
+function draw() {
+  var canvas = $("#draw")[0];
+  var ctx = canvas.getContext("2d");
+  clearCanvas("#draw");
 
-  // This will be defined on a TOUCH device such as iPad or Android, etc.
-  var is_touch_device = "ontouchstart" in document.documentElement;
+  for (var i = 0; i < existingLines.length; ++i) {
+    ctx.beginPath();
+    var line = existingLines[i];
+    var temp = ctx.strokeStyle;
+    ctx.strokeStyle = line.color;
+    ctx.moveTo(line.startX, line.startY);
+    ctx.lineTo(line.endX, line.endY);
+    ctx.stroke();
+    ctx.strokeStyle = temp;
+  }
 
-  if (is_touch_device) {
-    // create a drawer which tracks touch movements
-    var drawer = {
-      isDrawing: false,
-      touchstart: function(coors) {
-        context.beginPath();
-        context.moveTo(coors.x, coors.y);
-        this.isDrawing = true;
-      },
-      touchmove: function(coors) {
-        if (this.isDrawing) {
-          context.lineTo(coors.x, coors.y);
-          context.stroke();
-        }
-      },
-      touchend: function(coors) {
-        if (this.isDrawing) {
-          this.touchmove(coors);
-          this.isDrawing = false;
-        }
-      }
-    };
+  if (isDrawing) {
+    ctx.beginPath();
+    ctx.moveTo(startX, startY);
+    ctx.lineTo(mouseX, mouseY);
+    ctx.stroke();
+  }
+}
 
-    // create a function to pass touch events and coordinates to drawer
-    function draw(event) {
-      // get the touch coordinates.  Using the first touch in case of multi-touch
-      var coors = {
-        x: event.targetTouches[0].pageX,
-        y: event.targetTouches[0].pageY
-      };
+function onmousedown(e) {
+  if (e.button === 0) {
+    if (!isDrawing) {
+      var position = getPosition(e, document.getElementById("draw"));
+      startX = position.X;
+      startY = position.Y;
+      isDrawing = true;
+    }
+    draw();
+  }
+}
 
-      // Now we need to get the offset of the canvas location
-      var obj = sigCanvas;
+function onmouseup(e) {
+  if (e.button === 0) {
+    if (isDrawing) {
+      existingLines.push({
+        startX: startX,
+        startY: startY,
+        endX: mouseX,
+        endY: mouseY,
+        color: document.getElementById("draw").getContext("2d").strokeStyle
+      });
 
-      if (obj.offsetParent) {
-        // Every time we find a new object, we add its offsetLeft and offsetTop to curleft and curtop.
-        do {
-          coors.x -= obj.offsetLeft;
-          coors.y -= obj.offsetTop;
-        } while (
-          // The while loop can be "while (obj = obj.offsetParent)" only, which does return null
-          // when null is passed back, but that creates a warning in some editors (i.e. VS2010).
-          (obj = obj.offsetParent) != null
-        );
-      }
-
-      // pass the coordinates to the appropriate handler
-      drawer[event.type](coors);
+      isDrawing = false;
     }
 
-    // attach the touchstart, touchmove, touchend event listeners.
-    sigCanvas.addEventListener("touchstart", draw, false);
-    sigCanvas.addEventListener("touchmove", draw, false);
-    sigCanvas.addEventListener("touchend", draw, false);
-
-    // prevent elastic scrolling
-    sigCanvas.addEventListener(
-      "touchmove",
-      function(event) {
-        event.preventDefault();
-      },
-      false
-    );
-  } else {
-    // start drawing when the mousedown event fires, and attach handlers to
-    // draw a line to wherever the mouse moves to
-    $("#" + canvas).mousedown(function(mouseEvent) {
-      var position = getPosition(mouseEvent, sigCanvas);
-      context.moveTo(position.X, position.Y);
-      context.beginPath();
-      // attach event handlers
-      $(this)
-        .mousemove(function(mouseEvent) {
-          drawLine(mouseEvent, sigCanvas, context);
-        })
-        .mouseup(function(mouseEvent) {
-          finishDrawing(mouseEvent, sigCanvas, context);
-        })
-        .mouseout(function(mouseEvent) {
-          finishDrawing(mouseEvent, sigCanvas, context);
-        });
-    });
+    draw();
   }
 }
 
-// draws a line to the x and y coordinates of the mouse event inside
-// the specified element using the specified context
-function drawLine(mouseEvent, sigCanvas, context) {
-  var position = getPosition(mouseEvent, sigCanvas);
-
-  context.lineTo(position.X, position.Y);
-  context.stroke();
-}
-
-// draws a line from the last coordiantes in the path to the finishing
-// coordinates and unbind any event handlers which need to be preceded
-// by the mouse down event
-function finishDrawing(mouseEvent, sigCanvas, context) {
-  // draw the line to the finishing coordinates
-  drawLine(mouseEvent, sigCanvas, context);
-  context.closePath();
-  // unbind any events which could draw
-  $(sigCanvas)
-    .unbind("mousemove")
-    .unbind("mouseup")
-    .unbind("mouseout");
-}
-
-// Clear the canvas context using the canvas width and height
-function clearCanvas(canvas, ctx) {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-}
-*/
-
-function addRow(data) {
-  var row = $("<tr>");
-  for (var i = 0; i < 7; i++) {
-    var cell = $("<td>");
-    var generated_number = $("<td>").addClass("text-muted");
-    data[i].split("").forEach(function(value, idx, arr) {
-      cell.append("<span class='number'>" + value + "</span>");
-      if (idx == arr.length - 1) {
-        //generated_number.text(digitSum(arr[idx] + arr[idx - 1]));
-      }
-    });
-    row.append(cell).append(generated_number);
+function onmousemove(e) {
+  var position = getPosition(e, document.getElementById("draw"));
+  mouseX = position.X;
+  mouseY = position.Y;
+  if (isDrawing) {
+    draw();
   }
-  $("#paito > tbody").append(row);
 }
 
-function digitSum(number) {
-  if (isNaN(number)) return "";
-  if (number == 0) return 0;
-  return number % 9 == 0 ? 9 : number % 9;
+function init_drawing() {
+  canvas = document.getElementById("draw");
+  canvas.onmousedown = onmousedown;
+  canvas.onmouseup = onmouseup;
+  canvas.onmousemove = onmousemove;
+  ctx = canvas.getContext("2d");
+  ctx.strokeStyle = "#4144f1";
+  ctx.lineJoin = "round";
+  ctx.lineWidth = 1.8;
+
+  draw();
 }
 
-$(function() {
+function get_data(market) {
   axios
-    .get("data/texas_day.json")
+    .get("data/" + market + ".json")
     .then(function(response) {
       response.data.forEach(function(value) {
         addRow(value);
       });
       $("#draw")
-        .show()
+        //.show()
         //.offset($("#paito > tbody").offset())
         .height($("#paito").height())
         .width($("#paito").width())
-        .css({ top: 0, left: 0, marginTop: -$("#paito").height() })
-        .hide();
+        .css({
+          top: 0,
+          left: 0,
+          marginTop:
+            -$("#paito").height() -
+            $("#paito")
+              .css("marginBottom")
+              .replace(/[^-\d\.]/g, "")
+        })
+        .show();
       var ctx = $("#draw")[0].getContext("2d");
-      ctx.canvas.height = $("#paito > tbody").height();
-      ctx.canvas.width = $("#paito > tbody").width();
-      //init_drawing();
+      ctx.canvas.height = $("#paito").height();
+      ctx.canvas.width = $("#paito").width();
+      init_drawing();
     })
     .catch(function(error) {
       console.log(error);
+      $("#paito > tbody").empty();
+      $("#draw").hide();
+    })
+    .then(function() {
+      clearPaito();
     });
+}
+
+function clearPaito() {
+  clearCanvas("#draw");
+  $("#paito span.number").css("background-color", "");
+  existingLines = [];
+  numbersPressed = [];
+}
+
+var startX = 0;
+var startY = 0;
+var mouseX = 0;
+var mouseY = 0;
+var isDrawing = false;
+var existingLines = [];
+var numbersPressed = [];
+
+$(function() {
+  get_data("texas_day", "Texas Day");
+
   $("#clear_canvas").click(function() {
-    var canvas = $("#draw")[0];
-    var ctx = canvas.getContext("2d");
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    $("#paito span.number").css("background-color", "");
+    clearPaito();
+  });
+  $("#undo_line").click(function() {
+    existingLines.pop();
+    draw();
   });
   $("#draw_toggle").click(function() {
     $(this)
@@ -203,9 +198,12 @@ $(function() {
       .each(function() {
         $(this).toggle();
       });
-    $("#draw").toggle();
+    var zin = $("#paito").css("z-index");
+    $("#paito").css("z-index", $("#draw").css("z-index"));
+    $("#draw").css("z-index", zin);
   });
   $(".btn-color[data-color]").each(function() {
+    numbersPressed.push(this);
     $(this).css("background-color", this.dataset.color);
     $(this).click(function() {
       var canvas = $("#draw")[0];
@@ -219,5 +217,9 @@ $(function() {
       "background-color",
       $("#current_color").css("background-color")
     );
+  });
+  $("button[data-market]").click(function() {
+    $("#market_name").text($(this).text());
+    get_data(this.dataset.market);
   });
 });
