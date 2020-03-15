@@ -134,6 +134,7 @@ function get_data(market) {
   axios
     .get("data/" + market + ".json")
     .then(function(response) {
+      $("#paito > tbody").empty();
       response.data.forEach(function(value) {
         addRow(value);
       });
@@ -183,7 +184,8 @@ var existingLines = [];
 var numbersPressed = [];
 
 $(function() {
-  get_data("texas_day", "Texas Day");
+  get_data("texas_day");
+  $("#market_name").text("Texas Day");
 
   $("#clear_canvas").click(function() {
     clearPaito();
