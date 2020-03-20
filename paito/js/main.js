@@ -211,6 +211,8 @@ $(function() {
       var ctx = canvas.getContext("2d");
       ctx.strokeStyle = this.dataset.color;
       $("#current_color").css("background-color", this.dataset.color);
+      $(".btn-color[data-color]").removeClass("active");
+      $(this).addClass("active");
     });
   });
   $("#paito").on("click", ".number", function() {

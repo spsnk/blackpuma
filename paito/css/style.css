@@ -17,6 +17,11 @@ body {
     1px -1px 5px black;
 }
 
+.btn-color.active {
+  box-shadow: 1px 1px 5px black, -1px -1px 5px black, -1px 1px 5px black,
+    1px -1px 5px black;
+}
+
 #paito {
   user-select: none;
   position: relative;
@@ -39,8 +44,8 @@ span.number {
   height: 1.5rem;
   margin: 1px;
   border: 1px solid #00000077;
-  text-shadow: 1px 1px 1px white, -1px -1px 1px white, -1px 1px 1px white,
-    1px -1px 1px white;
+  text-shadow: 1px 1px 0 white, -1px -1px 0 white, -1px 1px 0 white,
+    1px -1px 0 white;
   border-radius: 50%;
   cursor: pointer;
   opacity: 0.9;
@@ -70,7 +75,7 @@ nav .btn {
 }
 
 #paito > tbody {
-  font-weight: 500;
+  font-weight: 700;
 }
 
 #paito td {
@@ -78,5 +83,5 @@ nav .btn {
 }
 
 .table {
-  width:auto;
+  width: auto;
 }

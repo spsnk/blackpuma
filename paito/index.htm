@@ -134,36 +134,27 @@
                 </button>
               </div>
             </li>
-            <li class="nav-item dropdown">
-              <a
-                class="nav-link dropdown-toggle"
-                role="button"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-                id="colorDropdown"
-                href="#"
-              >
-                <button
-                  class="btn btn-color "
-                  id="current_color"
-                  style="background-color: #4144f1;"
-                ></button>
-              </a>
-              <div class="dropdown-menu" aria-labelledby="colorDropdown">
-                <button class="btn btn-color" data-color="#4144f1"></button>
-                <button class="btn btn-color" data-color="#6a4444"></button>
-                <button class="btn btn-color" data-color="#7faf0d"></button>
-                <button class="btn btn-color" data-color="#76afe8"></button>
-                <button class="btn btn-color" data-color="#ab7e30"></button>
-                <button class="btn btn-color" data-color="#66ed0c"></button>
-                <button class="btn btn-color" data-color="#e4721b"></button>
-                <button class="btn btn-color" data-color="#f471b9"></button>
-                <button class="btn btn-color" data-color="#9123b3"></button>
-                <button class="btn btn-color" data-color="#ed0c0c"></button>
-                <button class="btn btn-color" data-color="#41e5f1"></button>
-                <button class="btn btn-color" data-color="#F2e250"></button>
-              </div>
+            <li class="nav-item">
+              <button
+                class="btn btn-color "
+                id="current_color"
+                style="background-color: #4144f1; display:none;"
+              ></button>
+              <button
+                class="btn btn-color active"
+                data-color="#4144f1"
+              ></button>
+              <button class="btn btn-color" data-color="#6a4444"></button>
+              <button class="btn btn-color" data-color="#7faf0d"></button>
+              <button class="btn btn-color" data-color="#76afe8"></button>
+              <button class="btn btn-color" data-color="#ab7e30"></button>
+              <button class="btn btn-color" data-color="#66ed0c"></button>
+              <button class="btn btn-color" data-color="#e4721b"></button>
+              <button class="btn btn-color" data-color="#f471b9"></button>
+              <button class="btn btn-color" data-color="#9123b3"></button>
+              <button class="btn btn-color" data-color="#ed0c0c"></button>
+              <button class="btn btn-color" data-color="#41e5f1"></button>
+              <button class="btn btn-color" data-color="#F2e250"></button>
             </li>
             <li class="nav-item">
               <button
@@ -200,8 +191,6 @@
         <table id="paito" class="table mx-auto">
           <thead>
             <tr>
-              <th scope="col">Sunday</th>
-              <th scope="col"></th>
               <th scope="col">Monday</th>
               <th scope="col"></th>
               <th scope="col">Tuesday</th>
@@ -213,6 +202,8 @@
               <th scope="col">Friday</th>
               <th scope="col"></th>
               <th scope="col">Saturday</th>
+              <th scope="col"></th>
+              <th scope="col">Sunday</th>
               <th scope="col"></th>
             </tr>
           </thead>
