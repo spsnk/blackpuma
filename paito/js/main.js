@@ -141,11 +141,9 @@ function get_data(market) {
       $("#draw")
         //.show()
         //.offset($("#paito > tbody").offset())
-        .height($("#paito").height())
+        //.height($("#paito").height())
         .width($("#paito").width())
         .css({
-          top: 0,
-          left: 0,
           marginTop:
             -$("#paito").height() -
             $("#paito")
