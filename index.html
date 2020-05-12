@@ -1,0 +1,30 @@
+<html>
+  <head>
+    <script>
+      function makeRequestHDD() {
+        fetch("http://demo6292426.mockable.io/hddList")
+          .then((response) => response.json())
+          .then((data) => {
+            tabla(data);
+          });
+      }
+      function tabla(data) {
+        console.log(data.data);
+        data.data.forEach((key) => {
+          console.log(key);
+          document.getElementById("data").innerHTML += `
+                <tr>
+                  <td>${key.size}</td>
+                  <td>${key.provider}</td>
+                  <td>${key.speed}</td>
+                  <td>${key.price}</td>
+                </tr>`;
+        });
+      }
+      makeRequestHDD();
+    </script>
+  </head>
+  <body>
+    <div id="data"></div>
+  </body>
+</html>
